@@ -191,7 +191,7 @@ export default function SimilarProductsPage({ productType, productId }: SimilarP
       {/* Products Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredProducts.map((product) => (
-          <Card key={product.id} className="hover-elevate" data-testid={`card-product-${product.id}`}>
+          <Card key={product.id} className="hover-elevate flex flex-col h-full" data-testid={`card-product-${product.id}`}>
             <CardHeader className="pb-3">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
@@ -208,7 +208,7 @@ export default function SimilarProductsPage({ productType, productId }: SimilarP
               </div>
             </CardHeader>
             
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 flex-1 flex flex-col">
               {/* Key Metrics */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
@@ -255,7 +255,7 @@ export default function SimilarProductsPage({ productType, productId }: SimilarP
               </div>
 
               {/* Target Concerns */}
-              <div className="space-y-2">
+              <div className="space-y-2 flex-1">
                 <span className="text-xs text-muted-foreground">Targets</span>
                 <div className="flex flex-wrap gap-1">
                   {product.targetConcerns.map((concern, index) => (
@@ -272,7 +272,7 @@ export default function SimilarProductsPage({ productType, productId }: SimilarP
               </div>
 
               {/* Consider Button */}
-              <div className="flex justify-center pt-2 border-t">
+              <div className="flex justify-center pt-2 border-t mt-auto">
                 <Button 
                   size="sm" 
                   variant="outline"
