@@ -76,6 +76,24 @@ export default function ProductCard({
     }
   };
 
+  const getProductBoxColor = (usage: UsageTime) => {
+    switch (usage) {
+      case 'morning': return 'bg-yellow-50 border-yellow-200'; // Very light yellow for morning products
+      case 'evening': return 'bg-slate-100 border-slate-300'; // Light slate for evening products
+      case 'both': return 'bg-gradient-to-br from-yellow-50 to-slate-100 border-slate-200'; // Subtle gradient
+      case 'anytime': return 'bg-white border-gray-200'; // Default white for anytime
+    }
+  };
+
+  const getUsageText = (usage: UsageTime) => {
+    switch (usage) {
+      case 'morning': return 'Morning';
+      case 'evening': return 'Evening';
+      case 'both': return 'AM/PM';
+      case 'anytime': return 'Anytime';
+    }
+  };
+
   const getUsageIcon = (usage: UsageTime) => {
     switch (usage) {
       case 'morning': return Sun;
@@ -85,7 +103,7 @@ export default function ProductCard({
     }
   };
   return (
-    <Card className="hover-elevate cursor-pointer transition-all duration-200" data-testid={`card-product-${id}`}>
+    <Card className={`hover-elevate cursor-pointer transition-all duration-200 border-2 ${getProductBoxColor(isInUse && currentUsage ? currentUsage : recommendedUsage)}`} data-testid={`card-product-${id}`}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-4">
           {/* Left side - Image and basic info */}
@@ -146,11 +164,12 @@ export default function ProductCard({
               )}
               
               {isInUse && currentUsage && (
-                <div className="flex justify-end">
-                  <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${getUsageColor(currentUsage)}`}>
+                <div className="flex justify-end items-center gap-1">
+                  <span className="text-xs text-muted-foreground">{getUsageText(currentUsage)}</span>
+                  <div className={`w-5 h-5 rounded border flex items-center justify-center ${getUsageColor(currentUsage)}`}>
                     {(() => {
                       const Icon = getUsageIcon(currentUsage);
-                      return <Icon className={`h-3 w-3 ${currentUsage === 'evening' ? 'text-white' : 'text-gray-700'}`} />;
+                      return <Icon className={`h-2.5 w-2.5 ${currentUsage === 'evening' ? 'text-white' : 'text-gray-700'}`} />;
                     })()}
                   </div>
                 </div>
@@ -184,10 +203,11 @@ export default function ProductCard({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground">Recommended:</span>
-            <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${getUsageColor(recommendedUsage)}`}>
+            <span className="text-xs text-muted-foreground">{getUsageText(recommendedUsage)}</span>
+            <div className={`w-5 h-5 rounded border flex items-center justify-center ${getUsageColor(recommendedUsage)}`}>
               {(() => {
                 const Icon = getUsageIcon(recommendedUsage);
-                return <Icon className={`h-3 w-3 ${recommendedUsage === 'evening' ? 'text-white' : 'text-gray-700'}`} />;
+                return <Icon className={`h-2.5 w-2.5 ${recommendedUsage === 'evening' ? 'text-white' : 'text-gray-700'}`} />;
               })()}
             </div>
           </div>
