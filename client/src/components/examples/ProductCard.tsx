@@ -23,8 +23,16 @@ export default function ProductCardExample() {
         isInUse={true}
         currentUsage="both"
         recommendedUsage="both"
+        suggestion={{
+          name: 'Better Gentle Cleanser',
+          brand: 'Vanicream',
+          improvementReason: 'Fragrance-free and gentler formula',
+          safetyScore: 9,
+          priceRange: '$12-18'
+        }}
         scanDate="2 days ago"
         onViewDetails={handleViewDetails}
+        onConsiderSuggestion={(id) => console.log('Consider suggestion for:', id)}
       />
     </div>
   );
