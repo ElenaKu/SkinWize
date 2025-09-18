@@ -152,9 +152,9 @@ export default function IngredientAnalysis({
                       {ingredient.chemicalFormula && (
                         <div className="flex items-center gap-2 text-xs">
                           <Beaker className="h-3 w-3 text-muted-foreground" />
-                          <code className="bg-muted px-2 py-1 rounded font-mono">
+                          <span className="bg-muted px-2 py-1 rounded font-medium">
                             {ingredient.chemicalFormula}
-                          </code>
+                          </span>
                         </div>
                       )}
                     </div>
@@ -238,11 +238,11 @@ export default function IngredientAnalysis({
                     <div className="p-3 bg-muted/50 rounded-lg">
                       <h4 className="font-medium text-sm mb-2 flex items-center gap-2">
                         <Beaker className="h-4 w-4" />
-                        Chemical Formula
+                        Chemical Name
                       </h4>
-                      <code className="text-sm font-mono bg-background px-3 py-2 rounded border">
+                      <div className="text-sm font-medium bg-background px-3 py-2 rounded border">
                         {ingredient.chemicalFormula}
-                      </code>
+                      </div>
                     </div>
                   )}
                   

@@ -161,12 +161,21 @@ export default function ProductsPage() {
   // //todo: remove mock functionality - replace with real ingredient data
   const mockIngredients = [
     {
+      name: "Aqua",
+      safetyLevel: 'safe' as const,
+      score: 10,
+      function: "Solvent, Base",
+      description: "The universal solvent and base for most cosmetic formulations.",
+      chemicalFormula: "Water",
+      isActive: false
+    },
+    {
       name: "Niacinamide",
       safetyLevel: 'safe' as const,
       score: 9,
       function: "Anti-inflammatory, Brightening",
       description: "A form of Vitamin B3 that helps reduce inflammation, regulate oil production, and improve skin texture.",
-      chemicalFormula: "C₆H₅NO₂",
+      chemicalFormula: "Nicotinamide",
       isActive: true
     },
     {
@@ -177,7 +186,7 @@ export default function ProductsPage() {
       description: "A powerful anti-aging ingredient that promotes cell turnover and collagen production.",
       concerns: ["Photosensitivity", "Initial irritation"],
       alternatives: ["Bakuchiol", "Granactive Retinoid"],
-      chemicalFormula: "C₂₀H₃₀O",
+      chemicalFormula: "Retinyl Palmitate",
       isActive: true
     },
     {
@@ -186,7 +195,7 @@ export default function ProductsPage() {
       score: 9,
       function: "Hydrating, Moisturizing",
       description: "A humectant that can hold up to 1000 times its weight in water, providing intense hydration.",
-      chemicalFormula: "(C₁₄H₂₁NO₁₁)ₙ",
+      chemicalFormula: "Sodium Hyaluronate",
       isActive: true
     },
     {
@@ -195,8 +204,17 @@ export default function ProductsPage() {
       score: 8,
       function: "Humectant, Moisturizing",
       description: "A simple but effective humectant that draws moisture from the environment to the skin.",
-      chemicalFormula: "C₃H₈O₃",
+      chemicalFormula: "Glycerol",
       isActive: false
+    },
+    {
+      name: "Ascorbyl Palmitate",
+      safetyLevel: 'safe' as const,
+      score: 8,
+      function: "Antioxidant, Vitamin C derivative",
+      description: "A stable form of Vitamin C that provides antioxidant protection and brightening benefits.",
+      chemicalFormula: "L-Ascorbyl Palmitate",
+      isActive: true
     },
     {
       name: "Cetyl Alcohol",
@@ -204,7 +222,7 @@ export default function ProductsPage() {
       score: 8,
       function: "Emollient, Texture enhancer",
       description: "A fatty alcohol used as an emollient and thickening agent in cosmetic formulations.",
-      chemicalFormula: "C₁₆H₃₄O",
+      chemicalFormula: "Hexadecanol",
       isActive: false
     },
     {
@@ -213,18 +231,9 @@ export default function ProductsPage() {
       score: 7,
       function: "Preservative",
       description: "A preservative commonly used in cosmetics to prevent bacterial and microbial growth.",
-      chemicalFormula: "C₈H₁₀O₂",
+      chemicalFormula: "Ethylene Glycol Phenyl Ether",
       isActive: false,
       concerns: ["Potential irritant at high concentrations"]
-    },
-    {
-      name: "Water",
-      safetyLevel: 'safe' as const,
-      score: 10,
-      function: "Solvent, Base",
-      description: "The universal solvent and base for most cosmetic formulations.",
-      chemicalFormula: "H₂O",
-      isActive: false
     },
     {
       name: "Dimethicone",
@@ -232,7 +241,7 @@ export default function ProductsPage() {
       score: 8,
       function: "Silicone, Barrier protection",
       description: "A silicone that forms a protective barrier on the skin and provides smoothing benefits.",
-      chemicalFormula: "(C₂H₆OSi)ₙ",
+      chemicalFormula: "Polydimethylsiloxane",
       isActive: false
     }
   ];
