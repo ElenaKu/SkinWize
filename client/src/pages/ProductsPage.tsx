@@ -21,6 +21,12 @@ interface ProductSuggestion {
   priceRange: string;
 }
 
+interface ProductAlternatives {
+  primary: ProductSuggestion;
+  alternatives: ProductSuggestion[];
+  totalCount: number;
+}
+
 interface Product {
   id: string;
   name: string;
@@ -37,6 +43,7 @@ interface Product {
   currentUsage?: 'morning' | 'evening' | 'both';
   recommendedUsage: 'morning' | 'evening' | 'both' | 'anytime';
   suggestion?: ProductSuggestion;
+  alternatives?: ProductAlternatives;
   scanDate: string;
 }
 
@@ -44,8 +51,8 @@ export default function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
-  // Generate comprehensive market suggestions for each product
-  const generateProductSuggestion = (product: any): ProductSuggestion | undefined => {
+  // Generate comprehensive market alternatives for each product
+  const generateProductAlternatives = (product: any) => {
     const criteria: SuggestionCriteria = {
       currentProductType: product.productType,
       currentIngredients: product.keyIngredients,
@@ -53,15 +60,27 @@ export default function ProductsPage() {
       currentSafetyScore: product.safetyScore
     };
     
-    const marketSuggestions = ProductSuggestionService.getMarketSuggestions(criteria, 1);
+    const marketSuggestions = ProductSuggestionService.getMarketSuggestions(criteria, 6); // Get up to 6 alternatives
     if (marketSuggestions.length > 0) {
-      const suggestion = marketSuggestions[0];
+      const primary = marketSuggestions[0];
+      const alternatives = marketSuggestions.slice(1);
+      
       return {
-        name: suggestion.name,
-        brand: suggestion.brand,
-        improvementReason: suggestion.improvementReason,
-        safetyScore: suggestion.safetyScore,
-        priceRange: suggestion.priceRange
+        primary: {
+          name: primary.name,
+          brand: primary.brand,
+          improvementReason: primary.improvementReason,
+          safetyScore: primary.safetyScore,
+          priceRange: primary.priceRange
+        },
+        alternatives: alternatives.map(alt => ({
+          name: alt.name,
+          brand: alt.brand,
+          improvementReason: alt.improvementReason,
+          safetyScore: alt.safetyScore,
+          priceRange: alt.priceRange
+        })),
+        totalCount: marketSuggestions.length
       };
     }
     return undefined;
@@ -84,7 +103,7 @@ export default function ProductsPage() {
       isInUse: true,
       currentUsage: 'both',
       recommendedUsage: 'both',
-      suggestion: generateProductSuggestion({
+      alternatives: generateProductAlternatives({
         productType: 'Gentle Cleanser',
         keyIngredients: ['Ceramides', 'Niacinamide', 'Hyaluronic Acid'],
         skinConcerns: ['Dryness', 'Barrier Repair', 'Hydration'],
@@ -107,7 +126,7 @@ export default function ProductsPage() {
       isInUse: true,
       currentUsage: 'morning',
       recommendedUsage: 'morning',
-      suggestion: generateProductSuggestion({
+      alternatives: generateProductAlternatives({
         productType: 'Vitamin C Serum',
         keyIngredients: ['L-Ascorbic Acid', 'Alpha Tocopherol'],
         skinConcerns: ['Dark Spots', 'Antioxidant Protection', 'Brightening'],
@@ -129,7 +148,7 @@ export default function ProductsPage() {
       compatibilityScore: 85,
       isInUse: false,
       recommendedUsage: 'anytime',
-      suggestion: generateProductSuggestion({
+      alternatives: generateProductAlternatives({
         productType: 'Daily Moisturizer',
         keyIngredients: ['Dimethicone', 'Glycerin', 'Isopropyl Palmitate'],
         skinConcerns: ['Moisturization', 'Barrier Protection'],
@@ -288,7 +307,7 @@ export default function ProductsPage() {
               isInUse={product.isInUse}
               currentUsage={product.currentUsage}
               recommendedUsage={product.recommendedUsage}
-              suggestion={product.suggestion}
+              alternatives={product.alternatives}
               scanDate={product.scanDate}
               onViewDetails={handleViewDetails}
               onConsiderSuggestion={handleConsiderSuggestion}

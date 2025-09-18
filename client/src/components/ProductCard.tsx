@@ -1,8 +1,10 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Eye, MoreVertical, Clock, Target, Sun, Moon, Sunrise, CheckCircle2, TrendingUp, Star } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Eye, MoreVertical, Clock, Target, Sun, Moon, Sunrise, CheckCircle2, TrendingUp, Star, ChevronDown, ChevronUp } from 'lucide-react';
 import SafetyIndicator, { SafetyLevel } from './SafetyIndicator';
+import { useState } from 'react';
 
 type UsageTime = 'morning' | 'evening' | 'both' | 'anytime';
 
@@ -12,6 +14,12 @@ interface ProductSuggestion {
   improvementReason: string;
   safetyScore: number;
   priceRange: string;
+}
+
+interface ProductAlternatives {
+  primary: ProductSuggestion;
+  alternatives: ProductSuggestion[];
+  totalCount: number;
 }
 
 interface ProductCardProps {
@@ -30,6 +38,7 @@ interface ProductCardProps {
   currentUsage?: 'morning' | 'evening' | 'both';
   recommendedUsage: UsageTime;
   suggestion?: ProductSuggestion;
+  alternatives?: ProductAlternatives;
   onViewDetails: (id: string) => void;
   onConsiderSuggestion?: (productId: string) => void;
   scanDate?: string;
@@ -51,10 +60,13 @@ export default function ProductCard({
   currentUsage,
   recommendedUsage,
   suggestion,
+  alternatives,
   onViewDetails,
   onConsiderSuggestion,
   scanDate
 }: ProductCardProps) {
+  const [showAllAlternatives, setShowAllAlternatives] = useState(false);
+  
   const getUsageIcon = (usage: UsageTime) => {
     switch (usage) {
       case 'morning': return Sun;
@@ -222,43 +234,112 @@ export default function ProductCard({
           </div>
         </div>
         
-        {/* Suggestion Box */}
-        {suggestion && (
-          <div className="bg-primary/5 border border-primary/20 rounded-md p-3 space-y-2">
-            <div className="flex items-center gap-2">
-              <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 text-xs">
-                <TrendingUp className="h-3 w-3 mr-1" />
-                Better Alternative
-              </Badge>
-              <div className="text-xs text-muted-foreground">
-                Score: {suggestion.safetyScore}/10
+        {/* Market Alternatives */}
+        {alternatives && (
+          <div className="bg-primary/5 border border-primary/20 rounded-md p-3 space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 text-xs">
+                  <TrendingUp className="h-3 w-3 mr-1" />
+                  Market Alternatives
+                </Badge>
+                <div className="text-xs text-muted-foreground">
+                  {alternatives.totalCount} options
+                </div>
               </div>
             </div>
             
-            <div className="space-y-1">
-              <h4 className="font-medium text-sm" data-testid={`text-suggestion-${id}`}>
-                {suggestion.name}
-              </h4>
-              <p className="text-xs text-muted-foreground">{suggestion.brand}</p>
+            {/* Primary Alternative */}
+            <div className="space-y-2 pb-2 border-b border-primary/10">
+              <div className="flex justify-between items-start">
+                <div className="space-y-1 flex-1">
+                  <h4 className="font-medium text-sm" data-testid={`text-primary-alternative-${id}`}>
+                    {alternatives.primary.name}
+                  </h4>
+                  <p className="text-xs text-muted-foreground">{alternatives.primary.brand}</p>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Score: {alternatives.primary.safetyScore}/10
+                </div>
+              </div>
+              
+              <div className="text-xs">
+                <p className="text-muted-foreground mb-1">Why it's better:</p>
+                <p>{alternatives.primary.improvementReason}</p>
+              </div>
+              
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-muted-foreground">{alternatives.primary.priceRange}</span>
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => onConsiderSuggestion?.(id)}
+                  data-testid={`button-consider-primary-${id}`}
+                >
+                  <Star className="h-3 w-3 mr-1" />
+                  Consider
+                </Button>
+              </div>
             </div>
-            
-            <div className="text-xs">
-              <p className="text-muted-foreground mb-1">Why it's better:</p>
-              <p>{suggestion.improvementReason}</p>
-            </div>
-            
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-muted-foreground">{suggestion.priceRange}</span>
-              <Button 
-                size="sm" 
-                variant="outline"
-                onClick={() => onConsiderSuggestion?.(id)}
-                data-testid={`button-consider-suggestion-${id}`}
-              >
-                <Star className="h-3 w-3 mr-1" />
-                Consider
-              </Button>
-            </div>
+
+            {/* Expandable Alternatives List */}
+            {alternatives.alternatives.length > 0 && (
+              <Collapsible open={showAllAlternatives} onOpenChange={setShowAllAlternatives}>
+                <CollapsibleTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="w-full justify-between p-2 h-auto"
+                    data-testid={`button-show-alternatives-${id}`}
+                  >
+                    <span className="text-xs">
+                      {showAllAlternatives ? 'Hide' : 'Show'} {alternatives.alternatives.length} more alternatives
+                    </span>
+                    {showAllAlternatives ? (
+                      <ChevronUp className="h-3 w-3" />
+                    ) : (
+                      <ChevronDown className="h-3 w-3" />
+                    )}
+                  </Button>
+                </CollapsibleTrigger>
+                
+                <CollapsibleContent className="space-y-3 pt-2">
+                  {alternatives.alternatives.map((alt, index) => (
+                    <div key={index} className="space-y-2 p-2 bg-background/50 rounded-md">
+                      <div className="flex justify-between items-start">
+                        <div className="space-y-1 flex-1">
+                          <h5 className="font-medium text-xs" data-testid={`text-alternative-${id}-${index}`}>
+                            {alt.name}
+                          </h5>
+                          <p className="text-xs text-muted-foreground">{alt.brand}</p>
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          Score: {alt.safetyScore}/10
+                        </div>
+                      </div>
+                      
+                      <div className="text-xs">
+                        <p className="text-muted-foreground mb-1">Benefits:</p>
+                        <p>{alt.improvementReason}</p>
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">{alt.priceRange}</span>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => onConsiderSuggestion?.(`${id}-alt-${index}`)}
+                          data-testid={`button-consider-alternative-${id}-${index}`}
+                        >
+                          <Star className="h-3 w-3 mr-1" />
+                          Consider
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </CollapsibleContent>
+              </Collapsible>
+            )}
           </div>
         )}
         
