@@ -38,12 +38,33 @@ export default function SimilarProductsPage({ productType, productId }: SimilarP
   const loadSimilarProducts = (type: string) => {
     setLoading(true);
     try {
-      // Get all products of the same type
+      // Get all products from the comprehensive market database
       const allProducts = ProductSuggestionService.searchMarketProducts('');
-      const similarProducts = allProducts.filter(product => 
-        product.productType.toLowerCase().includes(type.toLowerCase()) ||
-        type.toLowerCase().includes(product.productType.toLowerCase())
-      );
+      
+      const similarProducts = allProducts.filter(product => {
+        // Exact match
+        if (product.productType === type) return true;
+        
+        // For cleansers, include all cleanser types
+        if ((type.toLowerCase().includes('cleanser') || product.productType.toLowerCase().includes('cleanser')) &&
+            (type.toLowerCase().includes('cleanser') && product.productType.toLowerCase().includes('cleanser'))) {
+          return true;
+        }
+        
+        // For serums, include all serum types
+        if ((type.toLowerCase().includes('serum') || product.productType.toLowerCase().includes('serum')) &&
+            (type.toLowerCase().includes('serum') && product.productType.toLowerCase().includes('serum'))) {
+          return true;
+        }
+        
+        // Partial match (both directions) for other product types
+        if (product.productType.toLowerCase().includes(type.toLowerCase()) ||
+            type.toLowerCase().includes(product.productType.toLowerCase())) {
+          return true;
+        }
+        
+        return false;
+      });
       
       setProducts(similarProducts);
       setFilteredProducts(similarProducts);
