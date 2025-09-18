@@ -15,8 +15,11 @@ export default function ProductCardExample() {
         image={cleanserImage}
         safetyLevel="safe"
         safetyScore={8}
-        ingredientCount={15}
-        flaggedIngredients={0}
+        keyIngredients={['Ceramides', 'Niacinamide', 'Hyaluronic Acid']}
+        skinConcerns={['Dryness', 'Barrier Repair', 'Hydration']}
+        usageDuration="3 months"
+        productType="Gentle Cleanser"
+        compatibilityScore={95}
         scanDate="2 days ago"
         onViewDetails={handleViewDetails}
       />
