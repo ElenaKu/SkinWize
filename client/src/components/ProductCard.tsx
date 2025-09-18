@@ -67,21 +67,21 @@ export default function ProductCard({
 }: ProductCardProps) {
   const [showAllAlternatives, setShowAllAlternatives] = useState(false);
   
-  const getUsageColor = (usage: UsageTime) => {
-    switch (usage) {
-      case 'morning': return 'bg-yellow-100 border-yellow-300'; // Light color for morning
-      case 'evening': return 'bg-slate-700 border-slate-800'; // Dark color for evening
-      case 'both': return 'bg-gradient-to-r from-yellow-100 to-slate-700 border-slate-400'; // Gradient for both
-      case 'anytime': return 'bg-gray-200 border-gray-300'; // Neutral for anytime
-    }
-  };
-
   const getUsageIcon = (usage: UsageTime) => {
     switch (usage) {
       case 'morning': return Sun;
       case 'evening': return Moon;
       case 'both': return Sunrise;
       case 'anytime': return Clock;
+    }
+  };
+
+  const getUsageLabel = (usage: UsageTime) => {
+    switch (usage) {
+      case 'morning': return 'Morning';
+      case 'evening': return 'Evening';
+      case 'both': return 'AM/PM';
+      case 'anytime': return 'Anytime';
     }
   };
   return (
@@ -147,12 +147,17 @@ export default function ProductCard({
               
               {isInUse && currentUsage && (
                 <div className="flex justify-end">
-                  <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${getUsageColor(currentUsage)}`}>
+                  <Badge variant="secondary" className="text-xs">
                     {(() => {
                       const Icon = getUsageIcon(currentUsage);
-                      return <Icon className={`h-3 w-3 ${currentUsage === 'evening' ? 'text-white' : 'text-gray-700'}`} />;
+                      return (
+                        <>
+                          <Icon className="h-3 w-3 mr-1" />
+                          {getUsageLabel(currentUsage)}
+                        </>
+                      );
                     })()}
-                  </div>
+                  </Badge>
                 </div>
               )}
             </div>
@@ -182,14 +187,19 @@ export default function ProductCard({
       <CardContent className="pt-0 space-y-3">
         {/* Recommended Usage and Compatibility */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <span className="text-xs text-muted-foreground">Recommended:</span>
-            <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${getUsageColor(recommendedUsage)}`}>
+            <Badge variant="outline" className="text-xs">
               {(() => {
                 const Icon = getUsageIcon(recommendedUsage);
-                return <Icon className={`h-3 w-3 ${recommendedUsage === 'evening' ? 'text-white' : 'text-gray-700'}`} />;
+                return (
+                  <>
+                    <Icon className="h-3 w-3 mr-1" />
+                    {getUsageLabel(recommendedUsage)}
+                  </>
+                );
               })()}
-            </div>
+            </Badge>
           </div>
           
           {compatibilityScore && (
