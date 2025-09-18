@@ -284,20 +284,6 @@ export default function ProductCard({
               </div>
             </div>
 
-            {/* View All Similar Products Button */}
-            <div className="pt-2 border-t border-primary/10">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="w-full justify-center gap-2"
-                onClick={() => navigate(`/similar-products/${encodeURIComponent(productType)}?productId=${id}`)}
-                data-testid={`button-view-all-similar-${id}`}
-              >
-                <ExternalLink className="h-3 w-3" />
-                View All Similar Products
-              </Button>
-            </div>
-
             {/* Expandable Alternatives List */}
             {alternatives.alternatives.length > 0 && (
               <Collapsible open={showAllAlternatives} onOpenChange={setShowAllAlternatives}>
@@ -353,6 +339,20 @@ export default function ProductCard({
                       </div>
                     </div>
                   ))}
+                  
+                  {/* View All Similar Products Button - appears at bottom of expanded list */}
+                  <div className="pt-2 border-t border-primary/10">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full justify-center gap-2"
+                      onClick={() => navigate(`/similar-products/${encodeURIComponent(productType)}?productId=${id}`)}
+                      data-testid={`button-view-all-similar-${id}`}
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                      View All Similar Products
+                    </Button>
+                  </div>
                 </CollapsibleContent>
               </Collapsible>
             )}
