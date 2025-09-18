@@ -258,7 +258,7 @@ export default function SimilarProductsPage({ productType, productId }: SimilarP
               <div className="space-y-2">
                 <span className="text-xs text-muted-foreground">Targets</span>
                 <div className="flex flex-wrap gap-1">
-                  {product.targetConcerns.slice(0, 2).map((concern, index) => (
+                  {product.targetConcerns.map((concern, index) => (
                     <Badge 
                       key={index} 
                       variant="secondary" 
@@ -268,20 +268,11 @@ export default function SimilarProductsPage({ productType, productId }: SimilarP
                       {concern}
                     </Badge>
                   ))}
-                  {product.targetConcerns.length > 2 && (
-                    <Badge variant="secondary" className="text-xs">
-                      +{product.targetConcerns.length - 2}
-                    </Badge>
-                  )}
                 </div>
               </div>
 
-              {/* Price and Availability */}
-              <div className="flex justify-between items-center pt-2 border-t">
-                <div className="space-y-1">
-                  <span className="text-sm font-medium">{product.priceRange}</span>
-                  <p className="text-xs text-muted-foreground">{product.availability}</p>
-                </div>
+              {/* Consider Button */}
+              <div className="flex justify-center pt-2 border-t">
                 <Button 
                   size="sm" 
                   variant="outline"
