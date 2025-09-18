@@ -1,94 +1,93 @@
 # Skincare Analysis App Design Guidelines
 
 ## Design Approach
-**Reference-Based Approach** - Drawing inspiration from luxury beauty brands like **Aesop, Le Labo, and Drunk Elephant** that combine premium aesthetics with ingredient transparency. The app emphasizes warmth, natural sophistication, and spa-like tranquility while maintaining scientific credibility through elegant presentation.
+**Reference-Based Approach** - Drawing inspiration from health and beauty apps like **Yuka, Think Dirty, and Sephora** that combine product scanning with educational content. The app requires a clean, trustworthy aesthetic that emphasizes ingredient transparency and scientific credibility.
 
 ## Core Design Principles
-- **Warm Luxury**: Premium spa-like aesthetic with natural materials feeling
-- **Organic Sophistication**: Earth-toned elegance over clinical sterility  
-- **Tactile Comfort**: Textured, touchable visual elements
-- **Elevated Trust**: Luxury positioning builds credibility through quality perception
+- **Trust and Credibility**: Professional medical/scientific aesthetic
+- **Clarity over Complexity**: Clean ingredient presentation
+- **Educational Focus**: Information hierarchy that teaches users
+- **Gentle and Calming**: Skincare-appropriate color psychology
 
 ## Color Palette
 
 ### Primary Colors
-- **Primary**: 25 35% 55% (Warm terracotta - luxury and earthiness)
-- **Secondary**: 35 25% 25% (Rich coffee brown - premium depth)
+- **Primary**: 160 25% 45% (Calming sage green - trust and nature)
+- **Secondary**: 200 20% 25% (Deep blue-gray - scientific credibility)
 
 ### Supporting Colors
-- **Background Light**: 45 25% 96% (Warm cream)
-- **Background Dark**: 25 15% 12% (Deep warm charcoal)
-- **Success**: 95 25% 45% (Sage earth green)
-- **Warning**: 40 65% 60% (Golden amber)
-- **Error**: 15 60% 50% (Warm brick red)
+- **Background Light**: 160 15% 98% (Soft mint white)
+- **Background Dark**: 200 15% 8% (Deep blue-black)
+- **Success**: 145 60% 45% (Ingredient safety green)
+- **Warning**: 35 85% 55% (Caution amber)
+- **Error**: 0 70% 55% (Alert red)
 
 ### Accent Usage
-Minimal gold accent (45 55% 75%) reserved exclusively for premium CTAs and key highlights. Rely primarily on warm terracotta palette.
+Minimal accent colors - rely on primary green with subtle warm undertones (25 30% 85%) for highlights only when needed for CTAs.
 
 ## Typography
-- **Primary Headers**: Playfair Display (elegant serif for luxury feel)
-- **Secondary Headers**: Inter Semibold (clean sans-serif balance)
-- **Body Text**: Inter Regular
-- **Ingredients/Data**: Inter Medium (maintained readability)
+- **Primary**: Inter (clean, readable, scientific)
+- **Headers**: Inter Bold/Semibold
+- **Body**: Inter Regular
+- **Ingredients/Scientific**: Inter Medium (enhanced readability)
 
 ## Layout System
-**Tailwind Spacing**: 3, 6, 8, 12, 16, 20 units
-- Base spacing: p-6, m-6
-- Component separation: gap-8, space-y-12
-- Large sections: py-16, px-8
+**Tailwind Spacing**: Consistent use of 2, 4, 6, 8, 12, 16 units
+- Base spacing: p-4, m-4
+- Component separation: gap-6, space-y-8
+- Large sections: py-12, px-6
 
 ## Component Library
 
 ### Core Components
-- **Scan Interface**: Organic circular viewfinder with warm overlay and textured frame
-- **Product Cards**: Rounded, shadow-rich cards with warm backgrounds and serif product names
-- **Analysis Results**: Expandable accordion-style ingredient lists with earth-toned safety badges
-- **Routine Builder**: Timeline with warm connector lines and textured step indicators
-- **Safety Indicators**: Rounded badges in earth tones (sage/amber/brick) with elegant typography
+- **Scan Interface**: Circular camera viewfinder with ingredient overlay capability
+- **Product Cards**: Clean cards with ingredient safety scoring
+- **Analysis Results**: Expandable ingredient lists with safety indicators
+- **Routine Builder**: Timeline-style interface for morning/evening routines
+- **Safety Indicators**: Color-coded badges (green/amber/red) with explanations
 
 ### Navigation
-- **Bottom Tab Bar**: Warm-toned with subtle texture backgrounds
-- **Modal Overlays**: Full-screen with warm gradient overlays
-- **Slide-up Panels**: Organic curves with textured backgrounds
+- **Bottom Tab Bar**: Scan, Products, Routine, Profile
+- **Modal Overlays**: For detailed ingredient analysis
+- **Slide-up Panels**: For scanning results and recommendations
 
 ### Forms
-- **Skin Profile Setup**: Multi-step with warm progress indicators and serif headings
-- **Search Interface**: Rounded inputs with warm focus states and textured backgrounds
+- **Skin Profile Setup**: Multi-step form with skin type/concerns selection
+- **Search Interface**: Ingredient and product search with filters
 
 ### Data Displays
-- **Ingredient Cards**: Warm backgrounds with serif ingredient names and detailed descriptions
-- **Routine Timeline**: Organic flow with warm connector elements
-- **Compatibility Matrix**: Earth-toned grid with textured warning states
+- **Ingredient Safety Cards**: Score, explanation, alternatives
+- **Routine Timeline**: Visual morning/evening routine display
+- **Compatibility Matrix**: Product interaction warnings
 
 ## Visual Treatments
 
 ### Gradients
-- **Hero sections**: 25 35% 60% to 40 30% 70% (terracotta to warm golden)
-- **Card backgrounds**: 45 20% 94% to 35 15% 92% (cream to warm beige)
-- **Textural overlays**: Subtle noise/paper texture overlays for organic feel
+- **Hero sections**: Subtle 160 25% 50% to 180 20% 60% (sage to soft blue-green)
+- **Card overlays**: 160 15% 98% to 160 10% 95% (barely perceptible depth)
+- **Background treatments**: Soft, barely noticeable gradients that don't compete with content
 
 ### Background Treatments
-- **Primary surfaces**: Warm cream with subtle paper texture
-- **Cards**: Soft drop shadows with warm undertones
-- **Scan interface**: Warm dark overlay with organic circular cutout
-- **Texture elements**: Subtle linen/paper textures throughout interface
+- **Primary backgrounds**: Clean whites and soft mint tones
+- **Cards and surfaces**: Subtle shadows with scientific precision
+- **Scan interface**: Dark overlay with clear circular cutout
 
 ## Images
-- **Product photography**: Warm-lit, spa-like product styling on natural materials
-- **Ingredient imagery**: Botanical illustrations and natural ingredient photography  
-- **Textural backgrounds**: Subtle linen, paper, and natural material textures
-- **Hero presence**: Minimal hero imagery - focus on warm, textured interface elements rather than large marketing images
+- **Product photography**: High-contrast, clean product shots
+- **Ingredient illustrations**: Simple, scientific-style molecular diagrams
+- **Skin condition examples**: Clean, professional dermatological imagery
+- **No large hero image**: Focus on functionality over marketing imagery
 
 ## Animations
-**Subtle and Organic**:
-- **Scan animation**: Gentle organic pulse with warm glow
-- **Loading states**: Smooth ingredient analysis with warm progress indicators
-- **Results reveal**: Soft organic slide-up with texture reveals
-- **Navigation**: Warm fade transitions between states
+**Minimal and Purposeful**:
+- **Scan animation**: Gentle pulsing scan line
+- **Loading states**: Subtle ingredient analysis progress
+- **Results reveal**: Smooth slide-up reveal for analysis
+- **Navigation**: Standard tab transitions only
 
 ## Key Design Considerations
-- **Luxury positioning**: Premium typography and sophisticated spacing
-- **Organic warmth**: Natural textures and earth-toned color harmony
-- **Spa-like calm**: Generous whitespace and gentle visual hierarchy
-- **Ingredient elegance**: Beautiful presentation of scientific information
-- **Touch-friendly**: Rounded, tactile-feeling interactive elements
+- **Trust indicators**: Professional typography and clean layouts
+- **Educational focus**: Clear information hierarchy
+- **Ingredient transparency**: Easy-to-read safety information
+- **Scanning experience**: Intuitive camera interface with clear feedback
+- **Routine building**: Visual, timeline-based routine construction
