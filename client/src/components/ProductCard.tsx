@@ -101,9 +101,9 @@ export default function ProductCard({
               />
             </div>
             <div className="flex-1 min-w-0 space-y-1">
-              {/* Key Ingredients - Most Prominent */}
+              {/* Key Ingredients - Complete List */}
               <div className="flex flex-wrap gap-1 mb-1">
-                {keyIngredients.slice(0, 2).map((ingredient, index) => (
+                {keyIngredients.map((ingredient, index) => (
                   <Badge 
                     key={index} 
                     variant="secondary" 
@@ -113,11 +113,6 @@ export default function ProductCard({
                     {ingredient}
                   </Badge>
                 ))}
-                {keyIngredients.length > 2 && (
-                  <Badge variant="secondary" className="text-xs">
-                    +{keyIngredients.length - 2}
-                  </Badge>
-                )}
               </div>
               
               {/* Product Type & Brand */}
