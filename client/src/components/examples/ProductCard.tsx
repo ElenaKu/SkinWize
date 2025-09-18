@@ -20,6 +20,9 @@ export default function ProductCardExample() {
         usageDuration="3 months"
         productType="Gentle Cleanser"
         compatibilityScore={95}
+        isInUse={true}
+        currentUsage="both"
+        recommendedUsage="both"
         scanDate="2 days ago"
         onViewDetails={handleViewDetails}
       />

@@ -1,8 +1,10 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Eye, MoreVertical, Clock, Target } from 'lucide-react';
+import { Eye, MoreVertical, Clock, Target, Sun, Moon, Sunrise, CheckCircle2 } from 'lucide-react';
 import SafetyIndicator, { SafetyLevel } from './SafetyIndicator';
+
+type UsageTime = 'morning' | 'evening' | 'both' | 'anytime';
 
 interface ProductCardProps {
   id: string;
@@ -16,6 +18,9 @@ interface ProductCardProps {
   usageDuration: string;
   productType: string;
   compatibilityScore?: number;
+  isInUse: boolean;
+  currentUsage?: 'morning' | 'evening' | 'both';
+  recommendedUsage: UsageTime;
   onViewDetails: (id: string) => void;
   scanDate?: string;
 }
@@ -32,9 +37,29 @@ export default function ProductCard({
   usageDuration,
   productType,
   compatibilityScore,
+  isInUse,
+  currentUsage,
+  recommendedUsage,
   onViewDetails,
   scanDate
 }: ProductCardProps) {
+  const getUsageIcon = (usage: UsageTime) => {
+    switch (usage) {
+      case 'morning': return Sun;
+      case 'evening': return Moon;
+      case 'both': return Sunrise;
+      case 'anytime': return Clock;
+    }
+  };
+
+  const getUsageLabel = (usage: UsageTime) => {
+    switch (usage) {
+      case 'morning': return 'Morning';
+      case 'evening': return 'Evening';
+      case 'both': return 'AM/PM';
+      case 'anytime': return 'Anytime';
+    }
+  };
   return (
     <Card className="hover-elevate cursor-pointer transition-all duration-200" data-testid={`card-product-${id}`}>
       <CardHeader className="pb-3">
@@ -105,6 +130,53 @@ export default function ProductCard({
               Compatibility: {compatibilityScore}%
             </div>
           )}
+        </div>
+
+        {/* Usage Status and Timing */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {isInUse ? (
+                <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 text-xs">
+                  <CheckCircle2 className="h-3 w-3 mr-1" />
+                  In Use
+                </Badge>
+              ) : (
+                <Badge variant="outline" className="text-xs">
+                  Not in Use
+                </Badge>
+              )}
+              
+              {isInUse && currentUsage && (
+                <Badge variant="secondary" className="text-xs">
+                  {(() => {
+                    const Icon = getUsageIcon(currentUsage);
+                    return (
+                      <>
+                        <Icon className="h-3 w-3 mr-1" />
+                        {getUsageLabel(currentUsage)}
+                      </>
+                    );
+                  })()}
+                </Badge>
+              )}
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-muted-foreground">Recommended:</span>
+            <Badge variant="outline" className="text-xs">
+              {(() => {
+                const Icon = getUsageIcon(recommendedUsage);
+                return (
+                  <>
+                    <Icon className="h-3 w-3 mr-1" />
+                    {getUsageLabel(recommendedUsage)}
+                  </>
+                );
+              })()}
+            </Badge>
+          </div>
         </div>
         
         {/* Skin Concerns */}

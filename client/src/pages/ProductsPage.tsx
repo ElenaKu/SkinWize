@@ -24,6 +24,9 @@ interface Product {
   usageDuration: string;
   productType: string;
   compatibilityScore?: number;
+  isInUse: boolean;
+  currentUsage?: 'morning' | 'evening' | 'both';
+  recommendedUsage: 'morning' | 'evening' | 'both' | 'anytime';
   scanDate: string;
 }
 
@@ -59,6 +62,9 @@ export default function ProductsPage() {
       usageDuration: '3 months',
       productType: 'Gentle Cleanser',
       compatibilityScore: 95,
+      isInUse: true,
+      currentUsage: 'both',
+      recommendedUsage: 'both',
       scanDate: '2 days ago'
     },
     {
@@ -73,6 +79,9 @@ export default function ProductsPage() {
       usageDuration: '6 weeks',
       productType: 'Vitamin C Serum',
       compatibilityScore: 78,
+      isInUse: true,
+      currentUsage: 'morning',
+      recommendedUsage: 'morning',
       scanDate: '1 week ago'
     },
     {
@@ -87,6 +96,8 @@ export default function ProductsPage() {
       usageDuration: '2 months',
       productType: 'Daily Moisturizer',
       compatibilityScore: 85,
+      isInUse: false,
+      recommendedUsage: 'anytime',
       scanDate: '3 days ago'
     }
   ];
@@ -308,6 +319,9 @@ export default function ProductsPage() {
                   usageDuration={product.usageDuration}
                   productType={product.productType}
                   compatibilityScore={product.compatibilityScore}
+                  isInUse={product.isInUse}
+                  currentUsage={product.currentUsage}
+                  recommendedUsage={product.recommendedUsage}
                   scanDate={product.scanDate}
                   onViewDetails={handleViewDetails}
                 />
