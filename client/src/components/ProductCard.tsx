@@ -89,61 +89,67 @@ export default function ProductCard({
   return (
     <Card className="hover-elevate cursor-pointer transition-all duration-200" data-testid={`card-product-${id}`}>
       <CardHeader className="pb-3">
-        <div className="flex items-start justify-between gap-4">
-          {/* Left side - Image and basic info */}
-          <div className="flex gap-3 flex-1 min-w-0">
-            <div className="h-12 w-12 rounded-md overflow-hidden bg-muted flex-shrink-0">
-              <img 
-                src={image} 
-                alt={`${productType} with ${keyIngredients?.join(', ') || 'ingredients'}`}
-                className="h-full w-full object-cover"
-                data-testid={`img-product-${id}`}
-              />
-            </div>
-            <div className="flex-1 min-w-0 space-y-1">
-              {/* Key Ingredients - Complete List */}
-              <div className="flex flex-wrap gap-1 mb-1">
-                {keyIngredients.map((ingredient, index) => (
-                  <Badge 
-                    key={index} 
-                    variant="secondary" 
-                    className="text-xs bg-primary/10 text-primary border-primary/20"
-                    data-testid={`badge-ingredient-${id}-${index}`}
-                  >
-                    {ingredient}
-                  </Badge>
-                ))}
-              </div>
-              
-              {/* Product Type & Brand */}
-              <div className="space-y-0.5">
-                <h3 className="font-medium text-sm text-muted-foreground truncate" data-testid={`text-product-type-${id}`}>
+        <div className="flex items-start gap-4">
+          {/* Left side - Larger Product Image */}
+          <div className="h-20 w-20 rounded-lg overflow-hidden bg-muted flex-shrink-0 shadow-sm">
+            <img 
+              src={image} 
+              alt={`${productType} with ${keyIngredients?.join(', ') || 'ingredients'}`}
+              className="h-full w-full object-cover"
+              data-testid={`img-product-${id}`}
+            />
+          </div>
+          
+          {/* Center - Product info and ingredients */}
+          <div className="flex-1 min-w-0 space-y-2">
+            {/* Product Type & Brand */}
+            <div className="flex items-start justify-between">
+              <div className="space-y-0.5 flex-1">
+                <h3 className="font-medium text-base text-foreground" data-testid={`text-product-type-${id}`}>
                   {productType}
                 </h3>
-                <p className="text-xs text-muted-foreground truncate" data-testid={`text-brand-${id}`}>
+                <p className="text-sm text-muted-foreground" data-testid={`text-brand-${id}`}>
                   {brand}
                 </p>
               </div>
-            </div>
-          </div>
-          
-          {/* Right side - Usage status, timing, and safety */}
-          <div className="flex-shrink-0 space-y-2 text-right min-w-0" style={{minWidth: '120px'}}>
-            {/* Usage Status */}
-            <div className="space-y-1">
-              {isInUse ? (
-                <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 text-xs">
-                  <CheckCircle2 className="h-3 w-3 mr-1" />
-                  In Use
-                </Badge>
-              ) : (
-                <Badge variant="outline" className="text-xs">
-                  Not in Use
-                </Badge>
-              )}
               
-              {isInUse && currentUsage && (
-                <div className="flex justify-end">
+              {/* More Options Button - Better positioned */}
+              <Button variant="ghost" size="icon" className="h-8 w-8 -mt-1" data-testid={`button-menu-${id}`}>
+                <MoreVertical className="h-4 w-4" />
+              </Button>
+            </div>
+            
+            {/* Key Ingredients - Complete List */}
+            <div className="flex flex-wrap gap-1">
+              {keyIngredients.map((ingredient, index) => (
+                <Badge 
+                  key={index} 
+                  variant="secondary" 
+                  className="text-xs bg-primary/10 text-primary border-primary/20"
+                  data-testid={`badge-ingredient-${id}-${index}`}
+                >
+                  {ingredient}
+                </Badge>
+              ))}
+            </div>
+            
+            {/* Status and Info Row */}
+            <div className="flex items-center justify-between pt-1">
+              <div className="flex items-center gap-3">
+                {/* Usage Status */}
+                {isInUse ? (
+                  <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 text-xs">
+                    <CheckCircle2 className="h-3 w-3 mr-1" />
+                    In Use
+                  </Badge>
+                ) : (
+                  <Badge variant="outline" className="text-xs">
+                    Not in Use
+                  </Badge>
+                )}
+                
+                {/* Current Usage Time */}
+                {isInUse && currentUsage && (
                   <Badge variant="secondary" className="text-xs">
                     {(() => {
                       const Icon = getUsageIcon(currentUsage);
@@ -155,28 +161,22 @@ export default function ProductCard({
                       );
                     })()}
                   </Badge>
+                )}
+                
+                {/* Usage Duration */}
+                <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <Clock className="h-3 w-3" />
+                  <span data-testid={`text-usage-duration-${id}`}>{usageDuration}</span>
                 </div>
-              )}
-            </div>
-            
-            {/* Usage Duration */}
-            <div className="flex items-center justify-end gap-1 text-xs text-muted-foreground">
-              <Clock className="h-3 w-3" />
-              <span data-testid={`text-usage-duration-${id}`}>{usageDuration}</span>
-            </div>
-            
-            {/* Safety Score */}
-            <div className="flex justify-end">
+              </div>
+              
+              {/* Safety Score */}
               <SafetyIndicator 
                 level={safetyLevel} 
                 score={safetyScore} 
                 size="sm"
               />
             </div>
-            
-            <Button variant="ghost" size="icon" className="h-6 w-6" data-testid={`button-menu-${id}`}>
-              <MoreVertical className="h-3 w-3" />
-            </Button>
           </div>
         </div>
       </CardHeader>
