@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Search, Filter, ArrowLeft } from 'lucide-react';
+import { Search, Filter, ArrowLeft, Beaker, Star } from 'lucide-react';
 import { useState } from 'react';
 import SafetyIndicator, { SafetyLevel } from './SafetyIndicator';
 
@@ -15,6 +15,8 @@ interface Ingredient {
   description: string;
   concerns?: string[];
   alternatives?: string[];
+  chemicalFormula?: string;
+  isActive?: boolean;
 }
 
 interface IngredientAnalysisProps {
@@ -95,6 +97,75 @@ export default function IngredientAnalysis({
         </CardContent>
       </Card>
 
+      {/* Full Ingredient List */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Beaker className="h-5 w-5" />
+            Complete Ingredient List ({ingredients.length})
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-sm text-muted-foreground mb-3">
+            All ingredients listed in order of concentration (highest to lowest):
+          </div>
+          <div className="flex flex-wrap gap-1">
+            {ingredients.map((ingredient, index) => (
+              <Badge 
+                key={ingredient.name} 
+                variant={ingredient.isActive ? "default" : "secondary"}
+                className={`text-xs ${ingredient.isActive ? 'bg-primary text-primary-foreground' : ''}`}
+                data-testid={`badge-full-ingredient-${index}`}
+              >
+                {ingredient.isActive && <Star className="h-3 w-3 mr-1" />}
+                {ingredient.name}
+              </Badge>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Active Ingredients Section */}
+      {ingredients.filter(i => i.isActive).length > 0 && (
+        <Card className="bg-primary/5 border-primary/20">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2 text-primary">
+              <Star className="h-5 w-5" />
+              Active Ingredients ({ingredients.filter(i => i.isActive).length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {ingredients.filter(i => i.isActive).map((ingredient, index) => (
+                <div key={ingredient.name} className="p-3 bg-background rounded-lg border">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="font-medium">{ingredient.name}</h4>
+                        <SafetyIndicator 
+                          level={ingredient.safetyLevel} 
+                          score={ingredient.score}
+                          size="sm"
+                        />
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-2">{ingredient.function}</p>
+                      {ingredient.chemicalFormula && (
+                        <div className="flex items-center gap-2 text-xs">
+                          <Beaker className="h-3 w-3 text-muted-foreground" />
+                          <code className="bg-muted px-2 py-1 rounded font-mono">
+                            {ingredient.chemicalFormula}
+                          </code>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Search and Filter */}
       <div className="flex gap-2">
         <div className="relative flex-1">
@@ -122,11 +193,11 @@ export default function IngredientAnalysis({
         </div>
       </div>
 
-      {/* Ingredients List */}
+      {/* Detailed Ingredient Analysis */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">
-            Ingredient Analysis ({filteredIngredients.length})
+            Detailed Ingredient Analysis ({filteredIngredients.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -147,7 +218,8 @@ export default function IngredientAnalysis({
                         size="sm"
                       />
                       <div className="text-left">
-                        <div className="font-medium" data-testid={`text-ingredient-name-${index}`}>
+                        <div className="font-medium flex items-center gap-2" data-testid={`text-ingredient-name-${index}`}>
+                          {ingredient.isActive && <Star className="h-4 w-4 text-primary" />}
                           {ingredient.name}
                         </div>
                         <div className="text-sm text-muted-foreground">
@@ -161,6 +233,18 @@ export default function IngredientAnalysis({
                   <div className="text-sm text-muted-foreground">
                     {ingredient.description}
                   </div>
+
+                  {ingredient.chemicalFormula && (
+                    <div className="p-3 bg-muted/50 rounded-lg">
+                      <h4 className="font-medium text-sm mb-2 flex items-center gap-2">
+                        <Beaker className="h-4 w-4" />
+                        Chemical Formula
+                      </h4>
+                      <code className="text-sm font-mono bg-background px-3 py-2 rounded border">
+                        {ingredient.chemicalFormula}
+                      </code>
+                    </div>
+                  )}
                   
                   {ingredient.concerns && ingredient.concerns.length > 0 && (
                     <div>

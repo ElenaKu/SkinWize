@@ -165,16 +165,75 @@ export default function ProductsPage() {
       safetyLevel: 'safe' as const,
       score: 9,
       function: "Anti-inflammatory, Brightening",
-      description: "A form of Vitamin B3 that helps reduce inflammation, regulate oil production, and improve skin texture."
+      description: "A form of Vitamin B3 that helps reduce inflammation, regulate oil production, and improve skin texture.",
+      chemicalFormula: "C₆H₅NO₂",
+      isActive: true
     },
     {
       name: "Retinol",
       safetyLevel: 'moderate' as const,
       score: 6,
-      function: "Anti-aging, Cell turnover",
+      function: "Anti-aging, Cell turnover", 
       description: "A powerful anti-aging ingredient that promotes cell turnover and collagen production.",
       concerns: ["Photosensitivity", "Initial irritation"],
-      alternatives: ["Bakuchiol", "Granactive Retinoid"]
+      alternatives: ["Bakuchiol", "Granactive Retinoid"],
+      chemicalFormula: "C₂₀H₃₀O",
+      isActive: true
+    },
+    {
+      name: "Hyaluronic Acid",
+      safetyLevel: 'safe' as const,
+      score: 9,
+      function: "Hydrating, Moisturizing",
+      description: "A humectant that can hold up to 1000 times its weight in water, providing intense hydration.",
+      chemicalFormula: "(C₁₄H₂₁NO₁₁)ₙ",
+      isActive: true
+    },
+    {
+      name: "Glycerin",
+      safetyLevel: 'safe' as const,
+      score: 8,
+      function: "Humectant, Moisturizing",
+      description: "A simple but effective humectant that draws moisture from the environment to the skin.",
+      chemicalFormula: "C₃H₈O₃",
+      isActive: false
+    },
+    {
+      name: "Cetyl Alcohol",
+      safetyLevel: 'safe' as const,
+      score: 8,
+      function: "Emollient, Texture enhancer",
+      description: "A fatty alcohol used as an emollient and thickening agent in cosmetic formulations.",
+      chemicalFormula: "C₁₆H₃₄O",
+      isActive: false
+    },
+    {
+      name: "Phenoxyethanol",
+      safetyLevel: 'moderate' as const,
+      score: 7,
+      function: "Preservative",
+      description: "A preservative commonly used in cosmetics to prevent bacterial and microbial growth.",
+      chemicalFormula: "C₈H₁₀O₂",
+      isActive: false,
+      concerns: ["Potential irritant at high concentrations"]
+    },
+    {
+      name: "Water",
+      safetyLevel: 'safe' as const,
+      score: 10,
+      function: "Solvent, Base",
+      description: "The universal solvent and base for most cosmetic formulations.",
+      chemicalFormula: "H₂O",
+      isActive: false
+    },
+    {
+      name: "Dimethicone",
+      safetyLevel: 'safe' as const,
+      score: 8,
+      function: "Silicone, Barrier protection",
+      description: "A silicone that forms a protective barrier on the skin and provides smoothing benefits.",
+      chemicalFormula: "(C₂H₆OSi)ₙ",
+      isActive: false
     }
   ];
 
