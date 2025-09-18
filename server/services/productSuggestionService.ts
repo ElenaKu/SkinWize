@@ -185,22 +185,50 @@ export class ProductSuggestionService {
   static getMarketSuggestions(criteria: SuggestionCriteria, limit: number = 3): MarketProduct[] {
     const { currentProductType, currentIngredients, skinConcerns, currentSafetyScore } = criteria;
     
-    // Filter products by type and improvement potential
+    // Filter products by type and improvement potential (strict same type only)
     let candidates = COMPREHENSIVE_MARKET_DATABASE.filter(product => 
       product.productType === currentProductType &&
       product.safetyScore > currentSafetyScore &&
       this.hasCompatibleConcerns(product.targetConcerns, skinConcerns)
     );
     
-    // If no direct type matches, look for complementary products
+    // If no exact matches, look for similar product types (same category)
     if (candidates.length < limit) {
-      const complementary = COMPREHENSIVE_MARKET_DATABASE.filter(product =>
-        product.productType !== currentProductType &&
-        product.compatibilityWith.some(compat => 
-          currentIngredients.some(ing => ing.toLowerCase().includes(compat.toLowerCase()))
-        )
+      const sameCategory = COMPREHENSIVE_MARKET_DATABASE.filter(product => {
+        // For cleansers, include all cleanser types
+        if ((currentProductType.toLowerCase().includes('cleanser') || product.productType.toLowerCase().includes('cleanser')) &&
+            (currentProductType.toLowerCase().includes('cleanser') && product.productType.toLowerCase().includes('cleanser'))) {
+          return product.productType !== currentProductType && 
+                 product.safetyScore > currentSafetyScore &&
+                 this.hasCompatibleConcerns(product.targetConcerns, skinConcerns);
+        }
+        
+        // For serums, include all serum types
+        if ((currentProductType.toLowerCase().includes('serum') || product.productType.toLowerCase().includes('serum')) &&
+            (currentProductType.toLowerCase().includes('serum') && product.productType.toLowerCase().includes('serum'))) {
+          return product.productType !== currentProductType && 
+                 product.safetyScore > currentSafetyScore &&
+                 this.hasCompatibleConcerns(product.targetConcerns, skinConcerns);
+        }
+        
+        // For other products, use partial matching within the same category
+        return (product.productType.toLowerCase().includes(currentProductType.toLowerCase()) ||
+                currentProductType.toLowerCase().includes(product.productType.toLowerCase())) &&
+               product.productType !== currentProductType &&
+               product.safetyScore > currentSafetyScore &&
+               this.hasCompatibleConcerns(product.targetConcerns, skinConcerns);
+      });
+      candidates = [...candidates, ...sameCategory];
+    }
+    
+    // If still not enough, include same type products with any safety score
+    if (candidates.length < limit) {
+      const anySafetyScore = COMPREHENSIVE_MARKET_DATABASE.filter(product => 
+        product.productType === currentProductType &&
+        !candidates.includes(product) &&
+        this.hasCompatibleConcerns(product.targetConcerns, skinConcerns)
       );
-      candidates = [...candidates, ...complementary];
+      candidates = [...candidates, ...anySafetyScore];
     }
     
     // Sort by safety score and relevance
