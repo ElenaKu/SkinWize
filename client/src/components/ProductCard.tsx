@@ -75,8 +75,9 @@ export default function ProductCard({
   return (
     <Card className="hover-elevate cursor-pointer transition-all duration-200" data-testid={`card-product-${id}`}>
       <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <div className="flex gap-3 flex-1">
+        <div className="flex items-start justify-between gap-4">
+          {/* Left side - Image and basic info */}
+          <div className="flex gap-3 flex-1 min-w-0">
             <div className="h-12 w-12 rounded-md overflow-hidden bg-muted flex-shrink-0">
               <img 
                 src={image} 
@@ -88,7 +89,7 @@ export default function ProductCard({
             <div className="flex-1 min-w-0 space-y-1">
               {/* Key Ingredients - Most Prominent */}
               <div className="flex flex-wrap gap-1 mb-1">
-                {keyIngredients.slice(0, 3).map((ingredient, index) => (
+                {keyIngredients.slice(0, 2).map((ingredient, index) => (
                   <Badge 
                     key={index} 
                     variant="secondary" 
@@ -98,56 +99,29 @@ export default function ProductCard({
                     {ingredient}
                   </Badge>
                 ))}
-                {keyIngredients.length > 3 && (
+                {keyIngredients.length > 2 && (
                   <Badge variant="secondary" className="text-xs">
-                    +{keyIngredients.length - 3}
+                    +{keyIngredients.length - 2}
                   </Badge>
                 )}
               </div>
               
-              {/* Product Type & Brand - Secondary */}
-              <div className="flex items-center gap-2">
+              {/* Product Type & Brand */}
+              <div className="space-y-0.5">
                 <h3 className="font-medium text-sm text-muted-foreground truncate" data-testid={`text-product-type-${id}`}>
                   {productType}
                 </h3>
-                <span className="text-xs text-muted-foreground">•</span>
                 <p className="text-xs text-muted-foreground truncate" data-testid={`text-brand-${id}`}>
                   {brand}
                 </p>
               </div>
-              
-              {/* Usage Duration */}
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Clock className="h-3 w-3" />
-                <span data-testid={`text-usage-duration-${id}`}>Using for {usageDuration}</span>
-              </div>
             </div>
           </div>
-          <Button variant="ghost" size="icon" className="h-8 w-8 flex-shrink-0" data-testid={`button-menu-${id}`}>
-            <MoreVertical className="h-4 w-4" />
-          </Button>
-        </div>
-      </CardHeader>
-      
-      <CardContent className="pt-0 space-y-3">
-        {/* Safety & Compatibility */}
-        <div className="flex items-center justify-between">
-          <SafetyIndicator 
-            level={safetyLevel} 
-            score={safetyScore} 
-            size="sm"
-          />
-          {compatibilityScore && (
-            <div className="text-xs text-muted-foreground">
-              Compatibility: {compatibilityScore}%
-            </div>
-          )}
-        </div>
-
-        {/* Usage Status and Timing */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          
+          {/* Right side - Usage status, timing, and safety */}
+          <div className="flex-shrink-0 space-y-2 text-right min-w-0" style={{minWidth: '120px'}}>
+            {/* Usage Status */}
+            <div className="space-y-1">
               {isInUse ? (
                 <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 text-xs">
                   <CheckCircle2 className="h-3 w-3 mr-1" />
@@ -160,21 +134,47 @@ export default function ProductCard({
               )}
               
               {isInUse && currentUsage && (
-                <Badge variant="secondary" className="text-xs">
-                  {(() => {
-                    const Icon = getUsageIcon(currentUsage);
-                    return (
-                      <>
-                        <Icon className="h-3 w-3 mr-1" />
-                        {getUsageLabel(currentUsage)}
-                      </>
-                    );
-                  })()}
-                </Badge>
+                <div className="flex justify-end">
+                  <Badge variant="secondary" className="text-xs">
+                    {(() => {
+                      const Icon = getUsageIcon(currentUsage);
+                      return (
+                        <>
+                          <Icon className="h-3 w-3 mr-1" />
+                          {getUsageLabel(currentUsage)}
+                        </>
+                      );
+                    })()}
+                  </Badge>
+                </div>
               )}
             </div>
+            
+            {/* Usage Duration */}
+            <div className="flex items-center justify-end gap-1 text-xs text-muted-foreground">
+              <Clock className="h-3 w-3" />
+              <span data-testid={`text-usage-duration-${id}`}>{usageDuration}</span>
+            </div>
+            
+            {/* Safety Score */}
+            <div className="flex justify-end">
+              <SafetyIndicator 
+                level={safetyLevel} 
+                score={safetyScore} 
+                size="sm"
+              />
+            </div>
+            
+            <Button variant="ghost" size="icon" className="h-6 w-6" data-testid={`button-menu-${id}`}>
+              <MoreVertical className="h-3 w-3" />
+            </Button>
           </div>
-          
+        </div>
+      </CardHeader>
+      
+      <CardContent className="pt-0 space-y-3">
+        {/* Recommended Usage and Compatibility */}
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <span className="text-xs text-muted-foreground">Recommended:</span>
             <Badge variant="outline" className="text-xs">
@@ -189,6 +189,12 @@ export default function ProductCard({
               })()}
             </Badge>
           </div>
+          
+          {compatibilityScore && (
+            <div className="text-xs text-muted-foreground">
+              Compatibility: {compatibilityScore}%
+            </div>
+          )}
         </div>
         
         {/* Skin Concerns */}

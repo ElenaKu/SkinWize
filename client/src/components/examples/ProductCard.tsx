@@ -24,9 +24,9 @@ export default function ProductCardExample() {
         currentUsage="both"
         recommendedUsage="both"
         suggestion={{
-          name: 'Better Gentle Cleanser',
+          name: 'Gentle Hydrating Cleanser',
           brand: 'Vanicream',
-          improvementReason: 'Fragrance-free and gentler formula',
+          improvementReason: 'Fragrance-free, gentler formula with better barrier support',
           safetyScore: 9,
           priceRange: '$12-18'
         }}
