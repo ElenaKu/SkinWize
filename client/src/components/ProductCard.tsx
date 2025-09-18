@@ -2,9 +2,10 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Eye, MoreVertical, Clock, Target, Sun, Moon, Sunrise, CheckCircle2, TrendingUp, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import { Eye, MoreVertical, Clock, Target, Sun, Moon, Sunrise, CheckCircle2, TrendingUp, Star, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
 import SafetyIndicator, { SafetyLevel } from './SafetyIndicator';
 import { useState } from 'react';
+import { useLocation } from 'wouter';
 
 type UsageTime = 'morning' | 'evening' | 'both' | 'anytime';
 
@@ -66,6 +67,7 @@ export default function ProductCard({
   scanDate
 }: ProductCardProps) {
   const [showAllAlternatives, setShowAllAlternatives] = useState(false);
+  const [location, navigate] = useLocation();
   
   const getUsageIcon = (usage: UsageTime) => {
     switch (usage) {
@@ -280,6 +282,20 @@ export default function ProductCard({
                   Consider
                 </Button>
               </div>
+            </div>
+
+            {/* View All Similar Products Button */}
+            <div className="pt-2 border-t border-primary/10">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="w-full justify-center gap-2"
+                onClick={() => navigate(`/similar-products/${encodeURIComponent(productType)}?productId=${id}`)}
+                data-testid={`button-view-all-similar-${id}`}
+              >
+                <ExternalLink className="h-3 w-3" />
+                View All Similar Products
+              </Button>
             </div>
 
             {/* Expandable Alternatives List */}

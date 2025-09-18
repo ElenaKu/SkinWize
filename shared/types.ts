@@ -11,6 +11,8 @@ export interface MarketProduct {
   targetConcerns: string[];
   compatibilityWith: string[];
   improvementReason: string;
+  releaseDate: string; // YYYY-MM-DD format
+  efficiency: number; // 1-10 scale
 }
 
 export interface ProductDatabase {

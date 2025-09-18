@@ -14,7 +14,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Drugstore & online',
     targetConcerns: ['Sensitive Skin', 'Dryness', 'Barrier Repair'],
     compatibilityWith: ['Vitamin C', 'Retinoids', 'Niacinamide'],
-    improvementReason: 'Fragrance-free, gentler formula with better barrier support'
+    improvementReason: 'Fragrance-free, gentler formula with better barrier support',
+    releaseDate: '2018-03-15',
+    efficiency: 9
   },
   {
     id: 'market-cleanser-002',
@@ -27,7 +29,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Online & K-beauty stores',
     targetConcerns: ['Oily Skin', 'Acne', 'Large Pores'],
     compatibilityWith: ['Niacinamide', 'Vitamin C', 'Hyaluronic Acid'],
-    improvementReason: 'Better pH balance and oil control for acne-prone skin'
+    improvementReason: 'Better pH balance and oil control for acne-prone skin',
+    releaseDate: '2016-07-22',
+    efficiency: 8
   },
   
   // Vitamin C Serums - From multiple product databases
@@ -42,7 +46,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Online & Sephora',
     targetConcerns: ['Dark Spots', 'Antioxidant Protection', 'Sensitive Skin'],
     compatibilityWith: ['Retinoids', 'Niacinamide', 'Ceramides'],
-    improvementReason: 'More stable Vitamin C form, less irritating, better for sensitive skin'
+    improvementReason: 'More stable Vitamin C form, less irritating, better for sensitive skin',
+    releaseDate: '2019-05-10',
+    efficiency: 8
   },
   {
     id: 'market-serum-002',
@@ -55,7 +61,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Health stores & online',
     targetConcerns: ['Brightening', 'Antioxidant Protection', 'Natural Formula'],
     compatibilityWith: ['Hyaluronic Acid', 'Peptides', 'Natural Oils'],
-    improvementReason: 'Natural formulation with stable vitamin C, eco-friendly packaging'
+    improvementReason: 'Natural formulation with stable vitamin C, eco-friendly packaging',
+    releaseDate: '2017-11-08',
+    efficiency: 7
   },
   {
     id: 'market-serum-003',
@@ -68,7 +76,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Dermatologist & online',
     targetConcerns: ['Anti-aging', 'Environmental Protection', 'Firmness'],
     compatibilityWith: ['Sunscreen', 'Hyaluronic Acid', 'Peptides'],
-    improvementReason: 'Gold standard formulation with clinical studies, superior antioxidant protection'
+    improvementReason: 'Gold standard formulation with clinical studies, superior antioxidant protection',
+    releaseDate: '2005-02-20',
+    efficiency: 10
   },
   
   // Moisturizers - From comprehensive databases
@@ -83,7 +93,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Drugstore & online',
     targetConcerns: ['Sensitive Skin', 'Dryness', 'Barrier Repair'],
     compatibilityWith: ['All actives', 'Sunscreen', 'Makeup'],
-    improvementReason: 'Fragrance-free, better for sensitive skin, simpler formula'
+    improvementReason: 'Fragrance-free, better for sensitive skin, simpler formula',
+    releaseDate: '2020-01-15',
+    efficiency: 9
   },
   {
     id: 'market-moisturizer-002',
@@ -96,7 +108,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Sephora & department stores',
     targetConcerns: ['All skin types', 'Hydration', 'Protection'],
     compatibilityWith: ['Retinoids', 'Vitamin C', 'AHA/BHA'],
-    improvementReason: 'Lightweight yet deeply hydrating, works well under makeup'
+    improvementReason: 'Lightweight yet deeply hydrating, works well under makeup',
+    releaseDate: '2000-09-12',
+    efficiency: 8
   },
   {
     id: 'market-moisturizer-003',
@@ -109,7 +123,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Online & beauty stores',
     targetConcerns: ['Hydration', 'Budget-friendly', 'Minimal ingredients'],
     compatibilityWith: ['All actives', 'Layering products'],
-    improvementReason: 'Excellent value, science-based formulation, compatible with everything'
+    improvementReason: 'Excellent value, science-based formulation, compatible with everything',
+    releaseDate: '2016-12-05',
+    efficiency: 7
   },
   
   // Sunscreens - Critical for comprehensive routines
@@ -124,7 +140,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Dermatologist & online',
     targetConcerns: ['UV Protection', 'Sensitive Skin', 'Daily Use'],
     compatibilityWith: ['All skincare', 'Makeup base'],
-    improvementReason: 'Mineral protection without irritation, dermatologist recommended'
+    improvementReason: 'Mineral protection without irritation, dermatologist recommended',
+    releaseDate: '2015-06-30',
+    efficiency: 9
   },
   
   // Serums - Advanced actives
@@ -139,7 +157,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Online & beauty stores',
     targetConcerns: ['Oil Control', 'Pore Minimizing', 'Brightening'],
     compatibilityWith: ['Vitamin C', 'Hyaluronic Acid', 'Moisturizers'],
-    improvementReason: 'Targeted pore and oil control at budget-friendly price'
+    improvementReason: 'Targeted pore and oil control at budget-friendly price',
+    releaseDate: '2016-10-14',
+    efficiency: 8
   },
   {
     id: 'market-serum-005',
@@ -152,7 +172,9 @@ const COMPREHENSIVE_MARKET_DATABASE: MarketProduct[] = [
     availability: 'Online & beauty stores',
     targetConcerns: ['Rosacea', 'Acne', 'Brightening'],
     compatibilityWith: ['Niacinamide', 'Hyaluronic Acid'],
-    improvementReason: 'Multi-functional active for sensitive skin, anti-inflammatory'
+    improvementReason: 'Multi-functional active for sensitive skin, anti-inflammatory',
+    releaseDate: '2017-04-18',
+    efficiency: 7
   }
 ];
 
