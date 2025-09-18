@@ -8,6 +8,7 @@ import BottomNavigation, { NavTab } from "@/components/BottomNavigation";
 import ScanPage from "@/pages/ScanPage";
 import ProductsPage from "@/pages/ProductsPage";
 import RoutinePage from "@/pages/RoutinePage";
+import DevicesPage from "@/pages/DevicesPage";
 import ProfilePage from "@/pages/ProfilePage";
 import SimilarProductsPage from "@/pages/SimilarProductsPage";
 
@@ -31,6 +32,8 @@ function App() {
       setActiveTab('products');
     } else if (location === '/routine') {
       setActiveTab('routine');
+    } else if (location === '/devices') {
+      setActiveTab('devices');
     } else if (location === '/profile') {
       setActiveTab('profile');
     }
@@ -48,6 +51,7 @@ function App() {
         <Route path="/scan" component={ScanPage} />
         <Route path="/products" component={ProductsPage} />
         <Route path="/routine" component={RoutinePage} />
+        <Route path="/devices" component={DevicesPage} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="/similar-products">
           {() => <SimilarProductsPage />}

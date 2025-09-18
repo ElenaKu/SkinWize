@@ -1,7 +1,7 @@
-import { Camera, Package, Calendar, User } from 'lucide-react';
+import { Camera, Package, Calendar, User, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export type NavTab = 'scan' | 'products' | 'routine' | 'profile';
+export type NavTab = 'scan' | 'products' | 'routine' | 'devices' | 'profile';
 
 interface BottomNavigationProps {
   activeTab: NavTab;
@@ -12,13 +12,14 @@ const navItems = [
   { id: 'scan' as const, label: 'Scan', icon: Camera },
   { id: 'products' as const, label: 'Products', icon: Package },
   { id: 'routine' as const, label: 'Routine', icon: Calendar },
+  { id: 'devices' as const, label: 'Devices', icon: Smartphone },
   { id: 'profile' as const, label: 'Profile', icon: User },
 ];
 
 export default function BottomNavigation({ activeTab, onTabChange }: BottomNavigationProps) {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border z-40">
-      <div className="grid grid-cols-4 max-w-md mx-auto">
+      <div className="grid grid-cols-5 max-w-lg mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
