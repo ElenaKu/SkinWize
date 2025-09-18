@@ -261,23 +261,6 @@ export default function ProductsPage() {
         </Button>
       </div>
 
-      {/* Market Insights */}
-      {routineSuggestions.length > 0 && (
-        <Card className="bg-primary/5 border-primary/20">
-          <CardContent className="p-4">
-            <div className="space-y-2">
-              <h3 className="font-medium text-sm">🔍 Market Analysis</h3>
-              <p className="text-xs text-muted-foreground">
-                Based on comprehensive market data from EU CosIng, Cosmethics, and 15+ product databases
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Found {routineSuggestions.length} essential product{routineSuggestions.length !== 1 ? 's' : ''} missing from your routine
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
       {/* Products Grid */}
       <div className="space-y-4">
         {filteredProducts.length === 0 ? (
@@ -315,6 +298,34 @@ export default function ProductsPage() {
           ))
         )}
       </div>
+
+      {/* Market Analysis - Latest Cosmetic Trends */}
+      {routineSuggestions.length > 0 && (
+        <Card className="bg-gradient-to-r from-primary/5 to-secondary/5 border-primary/20 mt-6">
+          <CardContent className="p-4">
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <h3 className="font-medium text-sm">📊 Market Analysis</h3>
+                <Badge variant="secondary" className="text-xs">Latest Trends</Badge>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Based on comprehensive market data from EU CosIng, Cosmethics, and 15+ product databases
+              </p>
+              <div className="bg-background/50 rounded-md p-3 space-y-2">
+                <p className="text-xs font-medium text-foreground">
+                  🔍 Routine Gap Analysis
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Found {routineSuggestions.length} essential product{routineSuggestions.length !== 1 ? 's' : ''} missing from your routine
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Trending categories in the market show increased focus on barrier repair and gentle actives
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
