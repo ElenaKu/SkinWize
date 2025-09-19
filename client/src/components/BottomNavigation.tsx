@@ -18,7 +18,7 @@ const navItems = [
 
 export default function BottomNavigation({ activeTab, onTabChange }: BottomNavigationProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border z-40 texture-fabric">
+    <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border z-40">
       <div className="grid grid-cols-5 max-w-lg mx-auto">
         {navItems.map((item) => {
           const Icon = item.icon;

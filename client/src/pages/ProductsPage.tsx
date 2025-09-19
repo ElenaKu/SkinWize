@@ -299,7 +299,7 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="space-y-4 p-4 pb-20 texture-subtle min-h-screen" data-testid="products-page">
+    <div className="space-y-4 p-4 pb-20" data-testid="products-page">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">My Products</h1>

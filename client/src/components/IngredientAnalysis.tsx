@@ -72,7 +72,7 @@ export default function IngredientAnalysis({
       </div>
 
       {/* Overall Score */}
-      <Card className="texture-fabric">
+      <Card>
         <CardHeader>
           <CardTitle className="text-lg">Overall Safety Score</CardTitle>
         </CardHeader>
@@ -98,7 +98,7 @@ export default function IngredientAnalysis({
       </Card>
 
       {/* Full Ingredient List */}
-      <Card className="texture-subtle">
+      <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
             <Beaker className="h-5 w-5" />
@@ -127,7 +127,7 @@ export default function IngredientAnalysis({
 
       {/* Active Ingredients Section */}
       {ingredients.filter(i => i.isActive).length > 0 && (
-        <Card className="bg-primary/5 border-primary/20 texture-organic">
+        <Card className="bg-primary/5 border-primary/20">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2 text-primary">
               <Star className="h-5 w-5" />
@@ -137,8 +137,8 @@ export default function IngredientAnalysis({
           <CardContent>
             <div className="space-y-3">
               {ingredients.filter(i => i.isActive).map((ingredient, index) => (
-                <div key={ingredient.name} className="p-3 bg-background rounded-lg border texture-grain relative z-10">
-                  <div className="flex items-start justify-between gap-3 relative z-20">
+                <div key={ingredient.name} className="p-3 bg-background rounded-lg border">
+                  <div className="flex items-start justify-between gap-3">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <h4 className="font-medium">{ingredient.name}</h4>
@@ -194,7 +194,7 @@ export default function IngredientAnalysis({
       </div>
 
       {/* Detailed Ingredient Analysis */}
-      <Card className="texture-dots">
+      <Card>
         <CardHeader>
           <CardTitle className="text-lg">
             Detailed Ingredient Analysis ({filteredIngredients.length})

@@ -87,7 +87,7 @@ export default function ProductCard({
     }
   };
   return (
-    <Card className="hover-elevate cursor-pointer transition-all duration-200 texture-grain" data-testid={`card-product-${id}`}>
+    <Card className="hover-elevate cursor-pointer transition-all duration-200" data-testid={`card-product-${id}`}>
       <CardHeader className="pb-3">
         <div className="flex items-start gap-4">
           {/* Left side - Larger Product Image */}
